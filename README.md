@@ -1,16 +1,65 @@
-# Personalized-Medical-Recommendation-System-with-Machine-Learning
-Welcome to our cutting-edge Personalized Medical Recommendation System, a powerful platform designed to assist users in understanding and managing their health. Leveraging the capabilities of machine learning, our system analyzes user-input symptoms to predict potential diseases accurately. Here's what sets our system apart:
+# Disease Prediction and Medical Recommendation System 🩺
 
-User-Friendly Interface: Our intuitive interface allows users to input their symptoms effortlessly, creating a seamless user experience.
+This repository contains the implementation of a Disease Prediction and Medical Recommendation System developed for the CS 584 Machine Learning course.
 
-Advanced Machine Learning Models: We've integrated state-of-the-art machine learning models that accurately predict diseases based on input symptoms, ensuring reliable and precise results.
+## Introduction
+The Disease Prediction and Medical Recommendation System leverages machine learning techniques to predict diseases based on user-entered symptoms. It provides recommendations for medications, diets, and workouts tailored to specific diseases. The project uses a dataset from Kaggle comprising symptoms, diseases, medications, and other medical attributes to train and evaluate machine learning models.
 
-Tailored Recommendations: Receive personalized recommendations for the top 5 medicines, prescription details, and even workout routines based on the predicted disease.
+## Project Overview
+The project files are organized into the following directories:
 
-Flask App Integration: The entire system is powered by a Flask web application, making it easily accessible to users. Experience the convenience of accessing healthcare recommendations from anywhere.
+### 1. kaggle_dataset
+- `description.csv`: Descriptions of diseases.
+- `diets.csv`: Recommended diets for diseases.
+- `medications.csv`: Medications prescribed for diseases.
+- `precautions_df.csv`: Precautions to be taken for diseases.
+- `Symptom-severity.csv`: Severity of symptoms.
+- `symptoms_df.csv`: Symptoms with corresponding disease labels.
+- `Training.csv`: Dataset for training machine learning models.
+- `workout_df.csv`: Recommended workouts for diseases.
 
-Privacy and Security: We prioritize user privacy and data security. Your health information is handled with the utmost confidentiality, adhering to the highest industry standards.
+### 2. model
+- `RandomForest.pkl`: Trained Random Forest model for disease prediction.
 
-Continuous Improvement: Our system is designed for continuous improvement. As we gather more data, the machine learning models evolve, providing increasingly accurate and relevant recommendations.
+### 3. templates
+- `index.html`: Frontend interface for the Disease Prediction System.
 
-Take charge of your health with our Personalized Medical Recommendation System. Your well-being is our priority, and we're dedicated to providing you with the tools and insights you need for a healthier, happier life.
+### 4. static
+- `bgCover.jpg`, `img.png` : Images utilized in the frontend webpage.
+
+### 5. screenshots
+- Includes screenshots of the project.
+
+
+## How to Run the Project
+To run the Disease Prediction and Medical Recommendation System:
+
+1. **Install required Python libraries:**
+   ```bash
+   pip install pandas scikit-learn flask ast numpy fuzzywuzzy pickle
+
+2. **Navigate to the project directory:**
+   ```bash
+   cd ML_project
+
+3. **Start the Flask application:**
+   ```bash
+   python main.py
+
+4. **Access the web interface in your browser at**
+   ```bash
+   http://localhost:5000
+
+## Team Members
+
+- Tanmay Pramanick - A20541164
+- Kunal Rajput - A20540912
+- Soham Sonar - A20541266
+
+## Project Files Overview
+
+- `main.py`: Entry point for the Flask web application.
+- `disease_prediction_system.ipynb`: Jupyter Notebook with data preprocessing and model training.
+- `CS584_Project_Report.pdf`: Detailed report on methodologies, model evaluation, results, and future enhancements.
+- `index.html`: Front-end interface for the web application.
+

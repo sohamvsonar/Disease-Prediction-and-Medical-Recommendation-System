@@ -2,14 +2,14 @@ from flask import Flask, request, render_template, jsonify  # Import jsonify
 import numpy as np
 import pandas as pd
 import pickle
-
+from fuzzywuzzy import process
 
 # flask app
 app = Flask(__name__)
 
 
 
-# load databasedataset===================================
+# loading the database
 sym_des = pd.read_csv("kaggle_dataset/symptoms_df.csv")
 precautions = pd.read_csv("kaggle_dataset/precautions_df.csv")
 workout = pd.read_csv("kaggle_dataset/workout_df.csv")
@@ -18,7 +18,7 @@ medications = pd.read_csv('kaggle_dataset/medications.csv')
 diets = pd.read_csv("kaggle_dataset/diets.csv")
 
 
-# load model===========================================
+# load the model
 Rf = pickle.load(open('model/RandomForest.pkl','rb'))
 
 
@@ -58,17 +58,16 @@ def predicted_value(patient_symptoms):
         i_vector[symptoms_list_processed[i]] = 1
     return diseases_list[Rf.predict([i_vector])[0]]
 
+# Function to correct the spelling of the symptom
+def correct_spelling(symptom):
+    closest_match, score = process.extractOne(symptom, symptoms_list_processed.keys())
+    # If the similarity score is above a certain threshold, consider it a match
+    if score >= 80:
+        return closest_match
+    else:
+        return None
 
-
-
-# creating routes
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-# Define a route for the home page
+# Modify the home route to correct the spelling of symptoms
 @app.route('/predict', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -81,26 +80,30 @@ def home():
             patient_symptoms = [s.strip() for s in symptoms.split(',')]
             # Remove any extra characters, if any
             patient_symptoms = [symptom.strip("[]' ") for symptom in patient_symptoms]
-            # Check if any of the symptoms provided by the user are found in the database
-            matching_symptoms = [symptom for symptom in patient_symptoms if symptom.lower() in symptoms_list_processed]
-            if not matching_symptoms:
-                message = "Symptoms not found in the database."
-                return render_template('index.html', message=message)
-            else:
-                # Proceed with prediction
-                predicted_disease = predicted_value(matching_symptoms)
-                dis_des, precautions, medications, rec_diet, workout = information(predicted_disease)
 
-                my_precautions = []
-                for i in precautions[0]:
-                    my_precautions.append(i)
+            # Correct the spelling of symptoms
+            corrected_symptoms = []
+            for symptom in patient_symptoms:
+                corrected_symptom = correct_spelling(symptom)
+                if corrected_symptom:
+                    corrected_symptoms.append(corrected_symptom)
+                else:
+                    message = f"Symptom '{symptom}' not found in the database."
+                    return render_template('index.html', message=message)
 
-                return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
-                                       my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
-                                       workout=workout)
+            # Predict the disease using corrected symptoms
+            predicted_disease = predicted_value(corrected_symptoms)
+            dis_des, precautions, medications, rec_diet, workout = information(predicted_disease)
+
+            my_precautions = []
+            for i in precautions[0]:
+                my_precautions.append(i)
+
+            return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
+                                   my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
+                                   workout=workout)
 
     return render_template('index.html')
-
 
 
 

@@ -46,7 +46,7 @@ To run the Disease Prediction and Medical Recommendation System:
    ```bash
    python main.py
 
-4. **Access the web interface in your browser at**
+4. **Access the web interface in your browser at:**
    ```bash
    http://localhost:5000
 

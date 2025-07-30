@@ -36,7 +36,7 @@ To run the Disease Prediction and Medical Recommendation System:
 
 1. **Install required Python libraries:**
    ```bash
-   pip install pandas scikit-learn flask ast numpy fuzzywuzzy pickle
+   pip install -r requirements.txt
 
 2. **Navigate to the project directory:**
    ```bash
@@ -50,16 +50,15 @@ To run the Disease Prediction and Medical Recommendation System:
    ```bash
    http://localhost:5000
 
-## Team Members
+## Collaborators
 
-- Tanmay Pramanick - A20541164
-- Kunal Rajput - A20540912
-- Soham Sonar - A20541266
-
+- Soham Sonar
+- Kunal Rajput
+- Tanmay Pramanick
+  
 ## Project Files Overview
 
 - `main.py`: Entry point for the Flask web application.
 - `disease_prediction_system.ipynb`: Jupyter Notebook with data preprocessing and model training.
-- `CS584_Project_Report.pdf`: Detailed report on methodologies, model evaluation, results, and future enhancements.
 - `index.html`: Front-end interface for the web application.
 

@@ -60,5 +60,4 @@ To run the Disease Prediction and Medical Recommendation System:
 
 - `main.py`: Entry point for the Flask web application.
 - `disease_prediction_system.ipynb`: Jupyter Notebook with data preprocessing and model training.
-- `index.html`: Front-end interface for the web application.
 
